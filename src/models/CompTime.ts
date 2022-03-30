@@ -31,6 +31,9 @@ export class CompTime {
   @UpdateDateColumn()
   updatedOn!: Date;
 
+  @Column()
+  userId!: string;
+
   @ManyToOne(() => User)
   user!: User;
 }

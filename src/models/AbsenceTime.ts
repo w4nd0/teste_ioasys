@@ -20,9 +20,6 @@ export class AbsenceTime {
   quantity!: number;
 
   @Column()
-  justified!: boolean;
-
-  @Column()
   medical!: boolean;
 
   @CreateDateColumn()

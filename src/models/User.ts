@@ -14,6 +14,12 @@ export class User {
   id!: string;
 
   @Column()
+  email!: string;
+
+  @Column({ select: false })
+  password!: string;
+
+  @Column()
   name!: string;
 
   @Column()
@@ -23,12 +29,6 @@ export class User {
   birthDate!: string;
 
   @Column()
-  email!: string;
-
-  @Column({ select: false })
-  password!: string;
-
-  @Column({ update: false })
   isAdm!: boolean;
 
   @CreateDateColumn()
