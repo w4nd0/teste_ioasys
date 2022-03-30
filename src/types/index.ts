@@ -14,10 +14,19 @@ export interface InfoLogin {
   password: string;
 }
 
-export interface InfoProduct {
-  id: string;
-  name: string;
-  price: number;
+export interface InfoAbsenceTime {
+  date: Date;
+  quantity: number;
+  medical: boolean;
+  user: InfoUser;
+}
+
+export interface InfoCompesatoryTime {
+  date: Date;
+  quantity: number;
+  authorized: boolean;
+  withdrawn: boolean;
+  user: InfoUser;
 }
 
 export interface InfoCart {
