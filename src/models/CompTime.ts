@@ -11,31 +11,31 @@ import User from "./User";
 @Entity("comp_time")
 export class CompTime {
   @PrimaryGeneratedColumn("uuid")
-  id!: string;
+  id: string;
 
   @Column({ type: "date" })
-  date!: Date;
+  date: Date;
 
   @Column()
-  quantity!: number;
+  quantity: number;
 
-  @Column()
-  authorized!: boolean;
+  @Column({ default: false })
+  authorized: boolean;
 
-  @Column()
-  withdrawn!: boolean;
+  @Column({ default: false })
+  withdrawn: boolean;
 
   @CreateDateColumn()
-  createdOn!: Date;
+  createdOn: Date;
 
   @UpdateDateColumn()
-  updatedOn!: Date;
+  updatedOn: Date;
 
   @Column()
-  userId!: string;
+  userId: string;
 
   @ManyToOne(() => User)
-  user!: User;
+  user: User;
 }
 
 export default CompTime;

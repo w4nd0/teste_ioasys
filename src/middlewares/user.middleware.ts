@@ -3,6 +3,7 @@ import * as jwt from "jsonwebtoken";
 import { getManager, getRepository } from "typeorm";
 import config from "../config/auth";
 import User from "../models/User";
+
 import ErrorHandler from "../utils/error";
 
 export const setPassword = async (req, res, next) => {
@@ -34,7 +35,7 @@ export const authenticate = async (req, res, next) => {
 
     req.userId = user.userId;
 
-    next();
+    return next();
   } catch (e) {
     if (e instanceof ErrorHandler) {
       throw new ErrorHandler(e.message, e.statusCode);
@@ -63,7 +64,7 @@ export const resourceOwnerOrAdm = async (req, res, next) => {
     //   throw new ErrorHandler("Access not allowed");
     // }
 
-    next();
+    // next();
   } catch (e) {
     throw new ErrorHandler(e.message);
   }

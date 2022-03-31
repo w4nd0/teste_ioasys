@@ -5,7 +5,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --inspect --ignore-watch node_modules src/server.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "db:dev:rm": "docker-compose rm dev-db -s -f -v",
+    "db:dev:up": "docker-compose up dev-db -d",
+    "db:dev:start": "yarn db:dev:rm && yarn db:dev:up"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

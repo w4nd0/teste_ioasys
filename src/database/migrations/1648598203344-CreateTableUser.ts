@@ -18,7 +18,7 @@ export class CreateTableUser1648598203344 implements MigrationInterface {
           { name: "name", type: "varchar" },
           { name: "lastname", type: "varchar" },
           { name: "birthDate", type: "varchar" },
-          { name: "isAdm", type: "boolean" },
+          { name: "isAdm", type: "boolean", isNullable: true, default: false },
           { name: "createdOn", type: "timestamp", default: "now()" },
           { name: "updatedOn", type: "timestamp", default: "now()" },
         ],

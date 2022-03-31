@@ -13,13 +13,17 @@ class CreateUserService {
 
     if (checkUser) throw new ErrorHandler("E-mail already registered");
 
-    const newUser = usersRepository.create({ ...user });
+    try {
+      const newUser = usersRepository.create({ ...user });
 
-    await usersRepository.save(newUser);
+      await usersRepository.save(newUser);
 
-    delete newUser.password;
+      delete newUser.password;
 
-    return newUser;
+      return newUser;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

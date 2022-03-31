@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import {
   Entity,
   Column,
@@ -11,31 +12,32 @@ import {
 @Unique(["email"])
 export class User {
   @PrimaryGeneratedColumn("uuid")
-  id!: string;
+  id: string;
 
   @Column()
-  email!: string;
+  email: string;
 
   @Column({ select: false })
   password?: string;
 
   @Column()
-  name!: string;
+  name: string;
 
   @Column()
-  lastname!: string;
+  lastname: string;
 
   @Column({ type: "date" })
-  birthDate!: string;
+  birthDate: string;
 
-  @Column()
-  isAdm!: boolean;
+  @Exclude()
+  @Column({ default: false, nullable: true })
+  isAdm: boolean;
 
   @CreateDateColumn()
-  createdOn!: Date;
+  createdOn: Date;
 
   @UpdateDateColumn()
-  updatedOn!: Date;
+  updatedOn: Date;
 }
 
 export default User;

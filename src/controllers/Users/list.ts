@@ -1,3 +1,4 @@
+import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
 import LisUsersService from "../../services/Users/list.service";
 
@@ -7,7 +8,7 @@ class ListUsersController {
 
     const listUsers = await listUsersService.execute();
 
-    return response.json(listUsers);
+    return response.json(instanceToInstance(listUsers));
   }
 }
 

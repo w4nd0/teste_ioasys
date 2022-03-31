@@ -11,28 +11,28 @@ import User from "./User";
 @Entity("absence_time")
 export class AbsenceTime {
   @PrimaryGeneratedColumn("uuid")
-  id!: string;
+  id: string;
 
-  @Column({ type: 'date' })
-  date!: Date;
-
-  @Column()
-  quantity!: number;
+  @Column({ type: "date" })
+  date: Date;
 
   @Column()
-  medical!: boolean;
+  quantity: number;
+
+  @Column({ default: false })
+  medical: boolean;
 
   @CreateDateColumn()
-  createdOn!: Date;
+  createdOn: Date;
 
   @UpdateDateColumn()
-  updatedOn!: Date;
+  updatedOn: Date;
 
   @Column()
-  userId!: string;
+  userId: string;
 
   @ManyToOne(() => User)
-  user!: User;
+  user: User;
 }
 
 export default AbsenceTime;

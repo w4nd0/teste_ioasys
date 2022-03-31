@@ -29,12 +29,7 @@ const usersRoutes = (app: Express) => {
 
   router.get("", isAdm, new ListUsersController().handle);
   router.get("/:id", resourceOwnerOrAdm, new RetriveUserController().handle);
-  router.patch(
-    "/:id",
-    resourceOwnerOrAdm,
-    schemaValidate(userUpdateSchema),
-    new UpdateUserController().handle
-  );
+  router.patch("/:id", resourceOwnerOrAdm, new UpdateUserController().handle);
 
   app.use("/user", router);
 };
