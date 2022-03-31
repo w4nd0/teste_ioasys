@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import UpdateAbsencesService from "../../services/Absences/update.service";
+import UpdateAbsenceService from "../../services/Absences/update.service";
 
 class UpdateAbsenceController {
   async handle(request: Request, response: Response) {
@@ -7,7 +7,7 @@ class UpdateAbsenceController {
 
     const data = request.body;
 
-    const updateAbsenceService = new UpdateAbsencesService();
+    const updateAbsenceService = new UpdateAbsenceService();
 
     const updateAbsence = await updateAbsenceService.execute({ id, data });
 

@@ -2,11 +2,11 @@ import ErrorHandler from "../../utils/error";
 import { getRepository } from "typeorm";
 import AbsenceTime from "../../models/AbsenceTime";
 
-class RetriveAbsencesService {
+class RetriveAbsenceService {
   async execute(id: string) {
-    const AbsencessRepository = getRepository(AbsenceTime);
+    const absencesRepository = getRepository(AbsenceTime);
 
-    const absence = await AbsencessRepository.findOneOrFail({ id }).catch(
+    const absence = await absencesRepository.findOneOrFail({ id }).catch(
       (e) => {
         throw new ErrorHandler("Occurrence not found");
       }
@@ -15,4 +15,4 @@ class RetriveAbsencesService {
     return absence;
   }
 }
-export default RetriveAbsencesService;
+export default RetriveAbsenceService;

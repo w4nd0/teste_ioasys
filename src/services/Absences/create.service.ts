@@ -4,7 +4,6 @@ import { getRepository } from "typeorm";
 
 class CreateAbsenceService {
   async execute(absence: InfoAbsenceTime): Promise<AbsenceTime> {
-    console.log(absence);
     const AbsencesRepository = getRepository(AbsenceTime);
 
     try {

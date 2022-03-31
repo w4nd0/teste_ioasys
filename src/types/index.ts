@@ -21,7 +21,7 @@ export interface InfoAbsenceTime {
   user: InfoUser;
 }
 
-export interface InfoCompesatoryTime {
+export interface InfoCompensatoryTime {
   date: Date;
   quantity: number;
   authorized: boolean;

@@ -1,0 +1,701 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Teste back-end Ioasys",
+    "description": "A simple API for the Ioasys test",
+    "contact": {
+      "name": "API Support",
+      "url": "https://ioasys.com.br/",
+      "email": "wandersantosmoreira@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "local"
+    }
+  ],
+
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Acessar uma conta de usuário",
+        "description": "Essa rota é responsável por fazer o login do usuário",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoginUser" }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Wrong email/password"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "token": {
+                    "value": {
+                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0YmVhMTVmZS0wNjBkLTRjZTktOWQ5Zi0zOTExODY2NDU5ODUiLCJpYXQiOjE2NDI5NzM3MzAsImV4cCI6MTY0MzA2MDEzMH0.Ueub42ZjYvFh7moPn0pez49NxfFSWWV5ovg6cebLcGk"
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": { "token": { "type": "string" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/user": {
+      "post": {
+        "summary": "Cadastro de usuário",
+        "description": "Essa rota é responsável por cadastrar um usuário",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "wander moreira",
+                    "email": "wander178@hotmail.com",
+                    "password": "abcd",
+                    "isAdm": false,
+                    "id": "id"
+                  }
+                }
+              },
+              "schema": { "$ref": "#/components/schemas/User" }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "E-mail already registered"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista todos os usuários",
+        "description": "Essa rota é responsável por listar todos os usuários",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "401": {
+            "description": "Missing authorization headers"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/ArrayOfUsers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/user/{id}": {
+      "get": {
+        "summary": "Buscar um usuário",
+        "description": "Essa rota é responsável por buscar um usuário",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do usuário",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Missing authorization headers"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/absences": {
+      "post": {
+        "summary": "Realiza a criação de um período de falta",
+        "description": "Essa rota é responsável por adicionar um período de falta a um funionário.",
+        "tags": ["Absences"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Absence"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "JWT Expired or sended in a wrong way."
+          },
+          "401": {
+            "description": "JWT is missing."
+          },
+          "201": {
+            "description": "Created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Absence"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista todos os período de falta",
+        "description": "Essa rota é responsável por listar todos os períodos de falta.",
+        "tags": ["Absences"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "400": {
+            "description": "JWT Expired or sended in a wrong way."
+          },
+          "401": {
+            "description": "JWT is missing."
+          },
+          "200": {
+            "description": "OK.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/schemas/ArrayOfAbsences"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/absences/{id}": {
+      "get": {
+        "summary": "Buscar um período de falta",
+        "description": "Essa rota é responsável por buscar um período de falta de um funcionário.",
+        "tags": ["Absences"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da falta.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "JWT Expired or sended in a wrong way."
+          },
+          "401": {
+            "description": "JWT is missing."
+          },
+          "200": {
+            "description": "OK.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Absence"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Atualiza um período de falta",
+        "description": "Essa rota é responsável por atualizar um período de falta de um funcionário.",
+        "tags": ["Absences"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da falta.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "example": "2022-03-30 00:00:00"
+                  },
+                  "quantity": { "type": "number", "example": 3 },
+                  "medical": { "type": "boolean", "example": true }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "'JWT Expired or sended in a wrong way', 'Product not found'."
+          },
+          "401": {
+            "description": "JWT is missing."
+          },
+          "404": { "description": "Occurrence not found." },
+          "200": {
+            "description": "OK.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Absence"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deleta um período de falta",
+        "description": "Essa rota é responsável por deletar um período de falta de um funcionário.",
+        "tags": ["Absences"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da falta.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "JWT Expired or sended in a wrong way."
+          },
+          "401": {
+            "description": "JWT is missing."
+          },
+          "404": { "description": "Occurrence not found." },
+          "204": {
+            "description": "No body returned for response."
+          }
+        }
+      }
+    },
+
+    "/compensatory": {
+      "post": {
+        "summary": "Realiza a criação de um banco de horas",
+        "description": "Essa rota é responsável por adicionar um banco de horas a um funcionário.",
+        "tags": ["Compensatory Time"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/CompTime"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "JWT Expired or sended in a wrong way."
+          },
+          "401": {
+            "description": "JWT is missing."
+          },
+          "201": {
+            "description": "Created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/CompTime"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista todos os banco de horas",
+        "description": "Essa rota é responsável por listar todos os bancos de horas.",
+        "tags": ["Compensatory Time"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "400": {
+            "description": "JWT Expired or sended in a wrong way."
+          },
+          "401": {
+            "description": "JWT is missing."
+          },
+          "200": {
+            "description": "OK.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/schemas/ArrayOfCompTime"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/compensatory/{id}": {
+      "get": {
+        "summary": "Buscar um banco de horas",
+        "description": "Essa rota é responsável por buscar um banco de horas de um funcionário.",
+        "tags": ["Compensatory Time"],
+        "security": [{ "bearerAuth": [] }],
+
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do banco de horas.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "JWT Expired or sended in a wrong way."
+          },
+          "401": {
+            "description": "JWT is missing."
+          },
+          "200": {
+            "description": "OK.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/CompTime"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Atualiza um banco de horas",
+        "description": "Essa rota é responsável por atualizar um banco de horas de um funcionário.",
+        "tags": ["Compensatory Time"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do banco de horas.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "example": "2022-03-30 00:00:00"
+                  },
+                  "quantity": { "type": "number", "example": 3 },
+                  "medical": { "type": "boolean", "example": true }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "'JWT Expired or sended in a wrong way', 'Product not found'."
+          },
+          "401": {
+            "description": "JWT is missing."
+          },
+          "404": { "description": "Occurrence not found." },
+          "200": {
+            "description": "OK.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/CompTime"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deleta um banco de horas",
+        "description": "Essa rota é responsável por deletar um banco de horas de um funcionário.",
+        "tags": ["Compensatory Time"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do banco de horas.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "JWT Expired or sended in a wrong way."
+          },
+          "401": {
+            "description": "JWT is missing."
+          },
+          "404": { "description": "Occurrence not found." },
+          "204": {
+            "description": "No body returned for response."
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "LoginUser": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "default": "example@email.com"
+          },
+          "password": {
+            "type": "string",
+            "default": "1234abcd"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "isAdm": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "example": {
+          "id": "058280b2-8d79-450e-a29c-095cdfc751f4",
+          "name": "Novo User",
+          "email": "novo-user@email.com",
+          "isAdm": false,
+          "createdOn": "2022-01-23T23:10:49.933Z",
+          "updatedOn": "2022-01-23T23:10:49.933Z"
+        }
+      },
+      "CompTime": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "authorized": {
+            "type": "boolean"
+          },
+          "withdrawn": {
+            "type": "boolean"
+          },
+          "userId": {
+            "type": "string"
+          }
+        }
+      },
+      "ArrayOfCompTime": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref": "#components/schemas/CompTime"
+        },
+        "example": [
+          {
+            "id": "b1150adb-399d-4de3-8b63-2ab9d974a2d6",
+            "date": "2022-03-30 00:00:00",
+            "quantity": "2",
+            "authorized": false,
+            "withdrawn": false,
+            "userId": "127648c8-c691-449c-a460-bfd5645c7de0",
+            "createdOn": "2022-03-30T23:08:20.548Z",
+            "updatedOn": "2022-03-30T23:08:20.548Z"
+          },
+          {
+            "id": "b1150adb-399d-4de3-8b63-2ab9d974a2d6",
+            "date": "2022-04-30 00:00:00",
+            "quantity": "3",
+            "authorized": true,
+            "withdrawn": false,
+            "userId": "127648c8-c691-449c-a460-bfd5645c7de0",
+            "createdOn": "2022-04-30T10:14:53.548Z",
+            "updatedOn": "2022-05-30T03:08:20.548Z"
+          }
+        ]
+      },
+      "Absence": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "medical": {
+            "type": "boolean"
+          },
+          "userId": {
+            "type": "string"
+          }
+        }
+      },
+      "ArrayOfAbsences": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref": "#components/schemas/Cart"
+        },
+        "example": [
+          {
+            "id": "jl321l3j-123m-4de3-8b63-1238990132",
+            "date": "2022-02-05 00:00:00",
+            "quantity": "2",
+            "medical": false,
+            "userId": "127648c8-c691-449c-a460-bfd5645c7de0",
+            "createdOn": "2022-02-10T12:22:20.548Z",
+            "updatedOn": "2022-03-30T23:08:20.548Z"
+          },
+          {
+            "id": "as08d09asd-9s8d-9s0a9-8b63-d9asd89d90as",
+            "date": "2022-05-10 00:00:00",
+            "quantity": "1",
+            "medical": true,
+            "userId": "127648c8-c691-449c-a460-bfd5645c7de0",
+            "createdOn": "2022-04-30T10:14:53.548Z",
+            "updatedOn": "2022-05-30T03:08:20.548Z"
+          }
+        ]
+      },
+      "ArrayOfUsers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref": "#components/schemas/User"
+        },
+        "example": [
+          {
+            "id": "127648c8-c691-449c-a460-bfd5645c7de0",
+            "email": "wander@email.com",
+            "name": "Wander",
+            "lastname": "Moreira",
+            "birthDate": "26/02/1990",
+            "isAdm": true,
+            "createdOn": "2022-01-23T23:10:49.933Z",
+            "updatedOn": "2022-01-23T23:10:49.933Z"
+          },
+          {
+            "id": "127648c8-c691-449c-a460-bfd5645c7de0",
+            "email": "joao@email.com",
+            "name": "João",
+            "lastname": "Silva",
+            "birthDate": "12/01/2000",
+            "isAdm": false,
+            "createdOn": "2022-10-11T01:06:24.710Z",
+            "updatedOn": "2022-08-04T20:39:44.319Z"
+          }
+        ]
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

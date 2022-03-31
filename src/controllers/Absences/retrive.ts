@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import RetriveAbsencesService from "../../services/Absences/retrieve.service";
+import RetriveAbsenceService from "../../services/Absences/retrieve.service";
 
 class RetriveAbsenceController {
   async handle(request: Request, response: Response) {
-    const retriveAbsencesService = new RetriveAbsencesService();
+    const retriveAbsencesService = new RetriveAbsenceService();
 
     const { id } = request.params;
 
