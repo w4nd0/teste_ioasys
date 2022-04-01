@@ -5,7 +5,10 @@ class ListCompTimesController {
   async handle(request: Request, response: Response) {
     const listCompTimesService = new ListCompTimesService();
 
-    const listCompTimes = await listCompTimesService.execute();
+    const userId: string = request.userId;
+    const isAdm: boolean = request.isAdm;
+
+    const listCompTimes = await listCompTimesService.execute(userId, isAdm);
 
     return response.json(listCompTimes);
   }

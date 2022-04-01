@@ -23,6 +23,7 @@ const absencesRoutes = (app: Express) => {
     resourceOwnerOrAdm,
     new RetriveAbsenceController().handle
   );
+  absencesTimeRouter.get("", new ListAbsencesController().handle);
 
   absencesTimeRouter.use(isAdm);
 
@@ -31,7 +32,6 @@ const absencesRoutes = (app: Express) => {
     schemaValidate(absenceCreateSchema),
     new CreateAbsenceController().handle
   );
-  absencesTimeRouter.get("", new ListAbsencesController().handle);
   absencesTimeRouter.patch(
     "",
     schemaValidate(absenceUpdateSchema),

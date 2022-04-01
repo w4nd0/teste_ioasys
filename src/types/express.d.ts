@@ -1,5 +1,6 @@
 declare namespace Express {
   export interface Request {
-    UserId: string;
+    userId: string;
+    isAdm: boolean;
   }
 }

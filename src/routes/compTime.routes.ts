@@ -23,6 +23,7 @@ const compTimeRoutes = (app: Express) => {
     resourceOwnerOrAdm,
     new RetriveCompTimeController().handle
   );
+  compTimeRouter.get("", new ListCompTimesController().handle);
 
   compTimeRouter.use(isAdm);
 
@@ -31,7 +32,6 @@ const compTimeRoutes = (app: Express) => {
     schemaValidate(compTimeCreateSchema),
     new CreateCompTimeController().handle
   );
-  compTimeRouter.get("", new ListCompTimesController().handle);
   compTimeRouter.patch(
     "",
     schemaValidate(compTimeUpdateSchema),

@@ -1,3 +1,4 @@
+import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
 import CreateUserService from "../../services/Users/create.service";
 
@@ -7,7 +8,7 @@ class CreateUserController {
 
     const newUser = await createUserService.execute(request.body);
 
-    return response.status(201).json(newUser);
+    return response.status(201).json(instanceToInstance(newUser));
   }
 }
 

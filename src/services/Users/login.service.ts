@@ -18,20 +18,20 @@ class LoginUserService {
 
     const infoLogin = await usersRepository.findOne({
       where: { email },
-      select: ["id", "password"],
+      select: ["id", "password", "isAdm"],
     });
 
     if (!infoLogin) {
       throw new ErrorHandler("Wrong email/password");
     }
     const match = await bcrypt.compare(password, infoLogin.password);
-
     if (!match) {
       throw new ErrorHandler("Wrong email/password");
     }
     const token: string = jwt.sign(
       {
         userId: infoLogin.id,
+        isAdm: infoLogin.isAdm,
       },
       config.secret,
       {

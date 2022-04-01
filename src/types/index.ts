@@ -1,5 +1,3 @@
-import jwt from "jsonwebtoken";
-
 export interface InfoUser {
   email: string;
   name: string;
@@ -29,11 +27,7 @@ export interface InfoCompensatoryTime {
   user: InfoUser;
 }
 
-export interface InfoCart {
-  total: number;
-  user: InfoUser;
-}
-
 export interface TokenPayload {
   userId: string;
+  isAdm: boolean;
 }

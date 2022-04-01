@@ -2,12 +2,14 @@ import { getRepository } from "typeorm";
 import CompTime from "../../models/CompTime";
 
 class ListCompTimesService {
-  async execute() {
+  async execute(userId: string, isAdm: boolean) {
     const compTimeRepository = getRepository(CompTime);
 
-    const compTime = compTimeRepository.find();
-
-    return compTime;
+    if (isAdm) {
+      return compTimeRepository.find();
+    } else {
+      return compTimeRepository.find({ where: { userId } });
+    }
   }
 }
 

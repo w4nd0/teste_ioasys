@@ -33,8 +33,9 @@ export const authenticate = async (req, res, next) => {
     });
 
     const user = <TokenPayload>jwt.decode(token);
-
+    
     req.userId = user.userId;
+    req.isAdm = user.isAdm;
 
     return next();
   } catch (e) {

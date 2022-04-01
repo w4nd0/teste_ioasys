@@ -2,12 +2,14 @@ import { getRepository } from "typeorm";
 import AbsenceTime from "../../models/AbsenceTime";
 
 class ListAbsencesService {
-  async execute() {
+  async execute(userId: string, isAdm: boolean) {
     const absencesRepository = getRepository(AbsenceTime);
 
-    const absences = absencesRepository.find();
-
-    return absences;
+    if (isAdm) {
+      return absencesRepository.find();
+    } else {
+      return absencesRepository.find({ where: { userId } });
+    }
   }
 }
 
