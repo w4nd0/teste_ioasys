@@ -1,8 +1,7 @@
-import { Request, Response } from "express";
 import ListCompTimesService from "../../services/CompTime/list.service";
 
 class ListCompTimesController {
-  async handle(request: Request, response: Response) {
+  async handle(request, response) {
     const listCompTimesService = new ListCompTimesService();
 
     const userId: string = request.userId;

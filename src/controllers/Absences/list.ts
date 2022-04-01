@@ -1,8 +1,7 @@
-import { Request, Response } from "express";
 import ListAbsencesService from "../../services/Absences/list.service";
 
 class ListAbsencesController {
-  async handle(request: Request, response: Response) {
+  async handle(request, response) {
     const listAbsencesService = new ListAbsencesService();
 
     const userId: string = request.userId;

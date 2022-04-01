@@ -12,7 +12,7 @@ yarn install
 
 Também é preciso criar um `.env` com as informações do banco de dados e outras informações necessárias conforme o `.env.example`
 
-Posteriormente iniciar o banco de dados:
+Posteriormente, iniciar o banco de dados:
 
 ```
 yarn db:dev:start
@@ -26,8 +26,7 @@ yarn typeorm migration:run
 
 Usar `yarn dev` para iniciar o servidor.
 
-
-Obs.: A relação de end-points se encontra em: http://localhost:3000/api-documentation/
+Obs.: A relação de end-points pode ser consultada em: http://localhost:3000/api-documentation/
 
 ## Construído com
 
@@ -40,7 +39,3 @@ Obs.: A relação de end-points se encontra em: http://localhost:3000/api-docume
 ## Autor
 
 [Wander Moreira](https://github.com/w4nd0)
-
-## Licence
-
-MIT
