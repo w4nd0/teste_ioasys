@@ -2,8 +2,9 @@ import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import { getManager, getRepository } from "typeorm";
 import config from "../config/auth";
+import AbsenceTime from "../models/AbsenceTime";
 import User from "../models/User";
-
+import { TokenPayload } from "../types";
 import ErrorHandler from "../utils/error";
 
 export const setPassword = async (req, res, next) => {
@@ -31,7 +32,7 @@ export const authenticate = async (req, res, next) => {
       }
     });
 
-    const user = <jwt.UserId>jwt.decode(token);
+    const user = <TokenPayload>jwt.decode(token);
 
     req.userId = user.userId;
 
@@ -53,18 +54,6 @@ export const resourceOwnerOrAdm = async (req, res, next) => {
     const user = await usersRepository.findOne({ id: req.userId });
 
     if (user.id === id || user.isAdm) next();
-
-    // const result = await getManager()
-    //   .createQueryBuilder(CartOrderProduct, "buys")
-    //   .where("buys.cartId = :cartId", { cartId: id })
-    //   .orWhere("buys.orderId = :orderId", { orderId: id })
-    //   .getOne();
-
-    // if (result.userId !== req.userId) {
-    //   throw new ErrorHandler("Access not allowed");
-    // }
-
-    // next();
   } catch (e) {
     throw new ErrorHandler(e.message);
   }

@@ -1,4 +1,4 @@
-# Teste Ioasys 
+# Teste Ioasys
 
 Este projeto é uma API que comtempla uma pequena parte de um ERP. Desenvolvida para o teste de back-end da Ioasys
 
@@ -24,16 +24,23 @@ E por fim rodar as migrations:
 yarn typeorm migration:run
 ```
 
-##  Construído com
+Usar `yarn dev` para iniciar o servidor.
 
-- [NodeJs](https://nodejs.org/en/) - Software de código aberto, multiplataforma, baseado no interpretador V8 do Google e que permite a execução de códigos JavaScript fora de um navegador web.
-- [Express](https://expressjs.com/) - Express.js é um framework para Node.js que fornece recursos mínimos para construção de servidores web.
-- [Typescript](https://www.typescriptlang.org/) - TypeScript é uma linguagem de programação de código aberto desenvolvida pela Microsoft. É um superconjunto sintático estrito de JavaScript e adiciona tipagem estática opcional à linguagem.
 
-##  Autor
+Obs.: A relação de end-points se encontra em: http://localhost:3000/api-documentation/
 
-**Wander Moreira** - [Wander Moreira](https://github.com/w4nd0)
+## Construído com
 
-##  Licence
+- [NodeJs](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
+- [Typescript](https://www.typescriptlang.org/)
+- [TypeORM](https://typeorm.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+
+## Autor
+
+[Wander Moreira](https://github.com/w4nd0)
+
+## Licence
 
 MIT

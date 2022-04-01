@@ -1,11 +1,13 @@
 import jwt from "jsonwebtoken";
-import { getCustomRepository, getRepository } from "typeorm";
+import { getRepository } from "typeorm";
 import User from "../models/User";
+import { TokenPayload } from "../types";
 import ErrorHandler from "../utils/error";
+
 
 export const isAdm = async (req, res, next) => {
   try {
-    const userLogin = <jwt.UserId>(
+    const userLogin = <TokenPayload>(
       jwt.decode(req.headers.authorization.split(" ")[1])
     );
 
