@@ -1,6 +1,6 @@
 # Teste Ioasys
 
-Este projeto é uma API que comtempla uma pequena parte de um ERP. Desenvolvida para o teste de back-end da Ioasys
+Este projeto é uma API que contempla uma pequena parte de um ERP. Desenvolvida para o teste de back-end da Ioasys
 
 ### Instalação
 
